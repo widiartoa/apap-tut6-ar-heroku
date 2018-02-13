@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>View All Students</title>
+        <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+        <script src="/jquery/jquery-3.2.1.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.2.1/jq-3.2.1/dt-1.10.16/datatables.min.css"/>
+		<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.2.1/jq-3.2.1/dt-1.10.16/datatables.min.js"></script>
+        <script>
+        	$(document).ready(function() {
+        		$("#student-table").DataTable();
+        	});
+        </script>
+    </head>
+    <body>
+        <h1>All Students</h1>
+        
+        <table id="student-table">
+        	<thead>
+        		<tr>
+        			<th>No</th>
+        			<th>NPM</th>
+        			<th>Name</th>
+        			<th>GPA</th>
+        			<th>Status</th>
+        			<th>Delete</th>
+        			<th>Update</th>
+        		</tr>
+        	</thead>
+        	<tbody>
+        		<tr th:each="student,iterationStatus: ${students}">
+        			<td th:text="${iterationStatus.count}">No. 1</td>
+        			<td th:text="${student.npm}">Student NPM</td>
+        			<td th:text="${student.name}">Student Name</td>
+        			<td th:text="${student.gpa}">Student GPA</td>
+        			<td th:if="${student.gpa} >= 3.49">Cum Laude!</td>
+        			<td th:unless="${student.gpa} >= 3.49">Sangat Memuaskan</td>
+        			<td><a th:href="'/student/delete/' + ${student.npm}">Delete Data</a></td>
+        			<td><a th:href="'/student/update/' + ${student.npm}">Update Data</a></td>
+        		</tr>
+        	</tbody>
+        </table>
+    </body>
+</html>
